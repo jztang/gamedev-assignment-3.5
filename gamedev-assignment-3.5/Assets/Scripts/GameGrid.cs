@@ -9,11 +9,11 @@ public class GameGrid : MonoBehaviour {
 
     public Text whiteScore;
     public Text blackScore;
-
-
+    private bool whiteToMove; // White to move = true, black to move = false
 
     private void Start() {
         tiles = new GameObject[11, 11];
+        whiteToMove = true;
         GenerateGrid();
     }
 
@@ -33,7 +33,7 @@ public class GameGrid : MonoBehaviour {
             for(int col = 0; col < 11; col++) {
                 GameObject newTile = Instantiate(tilePrefab);
                 newTile.transform.position = GetPosByIndex(row, col);
-                newTile.GetComponent<Tile>().SetTile(2);
+                newTile.GetComponent<Tile>().SetTile(row, col, 2);
                 tiles[row, col] = newTile;
             }
         }
@@ -54,5 +54,24 @@ public class GameGrid : MonoBehaviour {
         tiles[5, 4].GetComponent<Tile>().SetTile(1);
         tiles[4, 5].GetComponent<Tile>().SetTile(1);
         tiles[5, 6].GetComponent<Tile>().SetTile(1);
+    }
+
+    public void PlaceTile(int row, int col) {
+    	if(whiteToMove) {
+    		tiles[row, col].GetComponent<Tile>().SetTile(0);
+    	} else {
+    		tiles[row, col].GetComponent<Tile>().SetTile(1);
+    	}
+
+    	CheckForFlips(row, col);
+    	whiteToMove = !whiteToMove;
+    }
+
+    private void CheckForFlips(int row, int col) {
+
+    }
+
+    private void FlipTile(int row, int col) {
+    	
     }
 }
