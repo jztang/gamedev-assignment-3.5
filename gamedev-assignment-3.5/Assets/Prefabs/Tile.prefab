@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1704830089484319009}
   - component: {fileID: 5741052314118418719}
   - component: {fileID: 5391491173345989236}
+  - component: {fileID: 4445908417238449361}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -93,12 +94,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420548c440fc7194b930368bc64051b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  row: 0
+  col: 0
   type: 0
   colors:
   - {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
   - {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
   - {r: 0.083971165, g: 0.4811321, b: 0.13039254, a: 1}
   - {r: 0.17755428, g: 0.3962264, b: 0.20311335, a: 1}
+  anim: {fileID: 0}
+  check: 0
 --- !u!60 &5391491173345989236
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -132,3 +137,22 @@ PolygonCollider2D:
       - {x: 0.42499998, y: -0.12}
       - {x: 0.42499998, y: 0.13}
       - {x: 0.275, y: 0.39}
+--- !u!95 &4445908417238449361
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627995435209986920}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6e83dd0054cec8c4aa6d8dac30f70da5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

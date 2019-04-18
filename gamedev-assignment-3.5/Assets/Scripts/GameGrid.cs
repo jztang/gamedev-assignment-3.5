@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameGrid : MonoBehaviour {
     public GameObject[,] tiles; // Matrix that represents the hexagonal grid
@@ -18,7 +19,10 @@ public class GameGrid : MonoBehaviour {
     }
 
     private void Update() {
-        
+        if(Input.GetKeyDown("r")) {
+            Debug.Log("Restarting...");
+            SceneManager.LoadScene("Game");
+        }
     }
 
     private Vector2 GetPosByIndex(int row, int col) {
@@ -57,10 +61,14 @@ public class GameGrid : MonoBehaviour {
     }
 
     public void PlaceTile(int row, int col) {
+        Tile curTile = tiles[row, col].GetComponent<Tile>();
+
     	if(whiteToMove) {
-    		tiles[row, col].GetComponent<Tile>().SetTile(0);
+            Debug.Log("White places a tile at [" + row + ", " + col + "]");
+    		curTile.SetTile(0);
     	} else {
-    		tiles[row, col].GetComponent<Tile>().SetTile(1);
+            Debug.Log("Black places a tile at [" + row + ", " + col + "]");
+    		curTile.SetTile(1);
     	}
 
     	CheckForFlips(row, col);

@@ -9,13 +9,18 @@ public class Tile : MonoBehaviour {
     public Color[] colors;
 
     private GameGrid grid;
+    //public Animator anim;
+
+    //public bool check;
 
     private void Start() {
         grid = GameObject.Find("GameGrid").GetComponent<GameGrid>();
+        //anim = GetComponent<Animator>();
     }
 
     private void Update() {
-        
+        //check = false;
+        //anim.SetBool("check", check);
     }
 
     public void SetTile(int row, int col, int t) {
@@ -25,23 +30,36 @@ public class Tile : MonoBehaviour {
     }
 
     public void SetTile(int t) {
-        type = t;
+        this.type = t;
         GetComponent<SpriteRenderer>().color = colors[type];
     }
 
-    private void OnMouseOver() {
-        if(type == 2) { // Tile is grey
-            this.SetTile(3); // Highlight tile
-
-            if(Input.GetMouseButtonDown(0)) { // Grey tile is clicked
-                grid.PlaceTile(row, col);
-            }
-        }
+    private void OnMouseOver() { // Highlight grey tile on hover
+        if(type == 2) this.SetTile(3);
     }
 
-    private void OnMouseExit() {
-        if(type == 3) { // Tile is grey + highlighted
-            this.SetTile(2); // Un-highlight tile
-        }
+    private void OnMouseExit() { // Un-highlight grey tile after hover
+        if(type == 3) this.SetTile(2);
     }
+
+    private void OnMouseDown() {
+        //check = true;
+        grid.PlaceTile(row, col);
+    }
+
+    /*public void FillWhite() {
+        anim.Play("FillWhite");
+    }
+
+    public void FillBlack() {
+        anim.Play("FillBlack");
+    }
+
+    public void FlipWhiteBlack() {
+        anim.Play("FlipWhiteBlack");
+    }
+
+    public void FlipBlackWhite() {
+        anim.Play("FlipBlackWhite");
+    }*/
 }
