@@ -5,8 +5,8 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
     public int row;
     public int col;
-    public int type;
-    public Color[] colors;
+    public int type; // Index in colors[]
+    public Color[] colors; // [white, black, green, green hover]
 
     private GameGrid grid;
     //public Animator anim;
@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour {
     public void SetTile(int row, int col, int t) {
         this.row = row;
         this.col = col;
-        this.SetTile(t);
+        SetTile(t);
     }
 
     public void SetTile(int t) {

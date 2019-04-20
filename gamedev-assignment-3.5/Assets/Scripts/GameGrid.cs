@@ -8,23 +8,35 @@ public class GameGrid : MonoBehaviour {
     public GameObject[,] tiles; // Matrix that represents the hexagonal grid
     public GameObject tilePrefab;
 
-    public Text whiteScore;
-    public Text blackScore;
-    private bool whiteToMove; // White to move = true, black to move = false
+    public Text whiteScoreText;
+    public Text blackScoreText;
+    private int whiteScore = 3;
+    private int blackScore = 3;
+
+    public Text whiteMove;
+    public Text blackMove;
+    private bool whiteToMove = true; // True = white to move, False = black to move
+    private bool animating = false;
 
     private void Start() {
         tiles = new GameObject[11, 11];
         whiteToMove = true;
+        whiteMove.enabled = true;
+        blackMove.enabled = false;
         GenerateGrid();
     }
 
     private void Update() {
-        if(Input.GetKeyDown("r")) {
+        if(Input.GetKeyDown("r")) { // Restart key for debugging
             Debug.Log("Restarting...");
             SceneManager.LoadScene("Game");
         }
+
+        whiteScoreText.text = "White: " + whiteScore;
+        blackScoreText.text = "Black: " + blackScore;
     }
 
+    // Get the position for a tile based on its index in the matrix
     private Vector2 GetPosByIndex(int row, int col) {
         float x = -3.9f + (0.78f * col);
         float y = 4.05f - (0.9f * row);
@@ -32,7 +44,9 @@ public class GameGrid : MonoBehaviour {
         return new Vector2(x, y);
     }
 
+    // Generate the starting grid of tiles
     private void GenerateGrid() {
+        // Create the matrix of tiles
         for(int row = 0; row < 11; row++) {
             for(int col = 0; col < 11; col++) {
                 GameObject newTile = Instantiate(tilePrefab);
@@ -42,6 +56,7 @@ public class GameGrid : MonoBehaviour {
             }
         }
 
+        // Destroy the tiles that aren't part of the board
         int[] rowTemp = {0, 1, 8, 9, 10, 0, 1, 9, 10, 0, 9, 10, 0, 10, 10, 
                          10, 0, 10, 0, 9, 10, 0, 1, 9, 10, 0, 1, 8, 9, 10};
         int[] colTemp = {0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 
@@ -51,15 +66,17 @@ public class GameGrid : MonoBehaviour {
             Destroy(tiles[rowTemp[i], colTemp[i]]);
         }
 
+        // Set the starting tiles
         tiles[4, 4].GetComponent<Tile>().SetTile(0);
         tiles[6, 5].GetComponent<Tile>().SetTile(0);
         tiles[4, 6].GetComponent<Tile>().SetTile(0);
-
         tiles[5, 4].GetComponent<Tile>().SetTile(1);
         tiles[4, 5].GetComponent<Tile>().SetTile(1);
         tiles[5, 6].GetComponent<Tile>().SetTile(1);
+        Debug.Log("Grid generated");
     }
 
+    // Player places a tile
     public void PlaceTile(int row, int col) {
         Tile curTile = tiles[row, col].GetComponent<Tile>();
 
@@ -73,10 +90,33 @@ public class GameGrid : MonoBehaviour {
 
     	CheckForFlips(row, col);
     	whiteToMove = !whiteToMove;
+        whiteMove.enabled = whiteToMove;
+        blackMove.enabled = !whiteToMove;
     }
 
+    // Check for tiles to flip as a result of a placed tile
     private void CheckForFlips(int row, int col) {
+        animating = true;
 
+        // Check up
+        
+
+        // Check up-right
+
+
+        // Check down-right
+
+
+        // Check down
+
+
+        // Check down-left
+
+
+        // Check up-left
+
+
+        animating = false;
     }
 
     private void FlipTile(int row, int col) {

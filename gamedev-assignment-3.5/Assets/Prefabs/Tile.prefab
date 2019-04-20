@@ -102,8 +102,6 @@ MonoBehaviour:
   - {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
   - {r: 0.083971165, g: 0.4811321, b: 0.13039254, a: 1}
   - {r: 0.17755428, g: 0.3962264, b: 0.20311335, a: 1}
-  anim: {fileID: 0}
-  check: 0
 --- !u!60 &5391491173345989236
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -145,7 +143,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5627995435209986920}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6e83dd0054cec8c4aa6d8dac30f70da5, type: 2}
   m_CullingMode: 0
