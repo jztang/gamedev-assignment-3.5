@@ -1,0 +1,74 @@
+Matrix: 11x11
+
+Actual board:
+[row][col]
+[0]  [2-7]
+[1]  [2-8]
+[2]  [1-8]
+[3]  [1-9]
+[4]  [0-9]
+[5]  [0-10]
+[6]  [0-9]
+[7]  [1-9]
+[8]  [1-8]
+[9]  [2-8]
+[10] [2-7]
+
+Starting white: [4][4], [6][5], [4][6]
+Starting black: [5][4], [4][5], [5][6]
+
+Matrix Traversal:
+Up                   | row--
+Up-right    even col |       col++
+Up-right     odd col | row-- col++
+Down-right  even col | row++ col++
+Down-right   odd col |       col++
+Down                 | row++
+Down-left   even col | row++ col--
+Down-left    odd col |       col--
+Up-left     even col |       col--
+Up-left      odd col | row-- col--
+
+Coordinates in Unity:
+Up         |            y + 0.9
+Up-right   | x + 0.78   y + 0.45
+Down-right | x + 0.78   y - 0.45
+Down       |            y - 0.9
+Down-left  | x - 0.78   y - 0.45
+Up-left    | x - 0.78   y + 0.45
+
+[5] [5]  -> (   0,     0)
+[0] [0]  -> (-3.9,  4.05)
+[0] [10] -> ( 7.8,  4.05)
+[10][0]  -> (-3.9, -4.05)
+[10][10] -> ( 3.9, -4.05)
+
+[row][col] -> (-3.9 + (0.78 * col), 4.05 - (0.9 * row))
+if(col % 2 == 1), y + 0.45
+
+Borders:
+Up         | [2][0], [2][1], [1][2], [1][3], [0][4], [0][5], [0][6], [1][7], [1][8], [2][9], [2][10]
+Up-right   | [0][5], [0][6], [1][7], [1][8], [2][9], [2][10], [3][10], [4][10], [5][10], [6][10], [7][10]
+Down-right | [2][10], [3][10], [4][10], [5][10], [6][10], [7][10], [8][9], [8][8], [9][7], [9][6], [10][5]
+Down       | [7][10], [8][9], [8][8], [9][7], [9][6], [10][5], [9][4], [9][3], [8][2], [8][1], [7][0]
+Down-left  | [10][5], [9][4], [9][3], [8][2], [8][1], [7][0], [6][0], [5][0], [4][0], [3][0], [2][0]
+Up-left    | [7][0], [6][0], [5][0], [4][0], [3][0], [2][0], [2][1], [1][2], [1][3], [0][4], [0][5]
+
+Colors:
+White: f2f2f2
+Black: 444444
+Green: 157B21
+Green hover: 2D6534
+Green background: 3A8742
+
+Longest line = 11 tiles (9 flips max)
+91 tiles total
+
+create empty tile list
+while(current tile isn't border)
+    get next tile
+    if(next tile is other color)
+        add next tile to list
+        current tile = next tile
+    else
+        break

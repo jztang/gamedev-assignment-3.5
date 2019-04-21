@@ -16,8 +16,12 @@ public class GameGrid : MonoBehaviour {
 
     public Text whiteMove;
     public Text blackMove;
+    public bool animating = false;
     private bool white = true; // True = white to move, False = black to move
-    private bool animating = false;
+    
+    public Text whiteWin;
+    public Text blackWin;
+    private bool gameOver = false;
 
     private void Start() {
         whiteMove.enabled = true;
@@ -26,13 +30,15 @@ public class GameGrid : MonoBehaviour {
     }
 
     private void Update() {
+        whiteScoreText.text = "White: " + whiteScore;
+        blackScoreText.text = "Black: " + blackScore;
+        
         if(Input.GetKeyDown("r")) { // Restart key for debugging
             Debug.Log("Restarting...");
             SceneManager.LoadScene("Game");
         }
 
-        whiteScoreText.text = "White: " + whiteScore;
-        blackScoreText.text = "Black: " + blackScore;
+        if(whiteScore + blackScore == 91 && !gameOver) EndGame();
     }
 
     // Get the position for a tile based on its index in the matrix
@@ -213,6 +219,7 @@ public class GameGrid : MonoBehaviour {
 
     // Flip the tiles given by CheckForFlips()
     private void FlipTiles() {
+        int tilesFlipped = 0;
         for(int i = 0; i < 9; i++) { // 9 max flips in one direction
             for(int dir = 0; dir < tilesToFlip.Count; dir++) { // Each tilesThisDir
                 if(i < tilesToFlip[dir].Count) {
@@ -225,10 +232,31 @@ public class GameGrid : MonoBehaviour {
                         whiteScore--;
                         blackScore++;
                     }
+                    tilesFlipped++;
                 }
             }
         }
 
+        if(white) {
+            Debug.Log(tilesFlipped + " black tiles flipped");
+        } else {
+            Debug.Log(tilesFlipped + " white tiles flipped");
+        }
+
         tilesToFlip = new List<List<Tile>>(); // Reset the list
+    }
+
+    private void EndGame() {
+        Debug.Log("Game over");
+        gameOver = true;
+        blackMove.enabled = false;
+
+        if(whiteScore > blackScore) {
+            Debug.Log("White wins");
+            whiteWin.enabled = true;
+        } else {
+            Debug.Log("Black wins");
+            blackWin.enabled = true;
+        }
     }
 }

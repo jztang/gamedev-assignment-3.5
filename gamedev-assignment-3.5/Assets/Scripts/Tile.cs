@@ -11,15 +11,12 @@ public class Tile : MonoBehaviour {
     private GameGrid grid;
     //public Animator anim;
 
-    //public bool check;
-
     private void Start() {
         grid = GameObject.Find("GameGrid").GetComponent<GameGrid>();
         //anim = GetComponent<Animator>();
     }
 
     private void Update() {
-        //check = false;
         //anim.SetBool("check", check);
     }
 
@@ -34,17 +31,16 @@ public class Tile : MonoBehaviour {
         GetComponent<SpriteRenderer>().color = colors[type];
     }
 
-    private void OnMouseOver() { // Highlight grey tile on hover
-        if(type == 2) this.SetTile(3);
+    private void OnMouseOver() { // Highlight empty tile on hover
+        if(type == 2 && !grid.animating) this.SetTile(3);
     }
 
-    private void OnMouseExit() { // Un-highlight grey tile after hover
-        if(type == 3) this.SetTile(2);
+    private void OnMouseExit() { // Un-highlight empty tile after hover
+        if(type == 3 && !grid.animating) this.SetTile(2);
     }
 
-    private void OnMouseDown() {
-        //check = true;
-        grid.PlaceTile(row, col);
+    private void OnMouseDown() { // Player clicks to place a tile
+        if(type > 1 && !grid.animating) grid.PlaceTile(row, col);
     }
 
     /*public void FillWhite() {
