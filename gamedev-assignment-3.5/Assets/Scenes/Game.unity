@@ -648,6 +648,8 @@ MonoBehaviour:
   whiteMove: {fileID: 301410118}
   blackMove: {fileID: 1739814740}
   animating: 0
+  whiteWin: {fileID: 1369568251}
+  blackWin: {fileID: 2076905354}
 --- !u!4 &1553849342
 Transform:
   m_ObjectHideFlags: 0
