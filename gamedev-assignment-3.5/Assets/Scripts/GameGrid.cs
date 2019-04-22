@@ -9,6 +9,12 @@ public class GameGrid : MonoBehaviour {
     public GameObject[,] tiles = new GameObject[11, 11]; // Matrix that represents the hexagonal grid
     private List<List<Tile>> tilesToFlip = new List<List<Tile>>();
 
+    public AudioSource audioSource;
+    public AudioClip move;
+    public AudioClip win;
+    public AudioClip flipWhite;
+    public AudioClip flipBlack;
+
     public Text whiteScoreText;
     public Text blackScoreText;
     private int whiteScore = 3;
@@ -16,7 +22,6 @@ public class GameGrid : MonoBehaviour {
 
     public Text whiteMove;
     public Text blackMove;
-    public bool animating = false;
     private bool white = true; // True = white to move, False = black to move
     
     public Text whiteWin;
@@ -95,6 +100,7 @@ public class GameGrid : MonoBehaviour {
             blackScore++;
     	}
 
+        audioSource.PlayOneShot(move, 1f);
     	CheckForFlips(row, col);
     	white = !white;
         whiteMove.enabled = white;
@@ -103,7 +109,6 @@ public class GameGrid : MonoBehaviour {
 
     // Check for tiles to flip as a result of a placed tile
     private void CheckForFlips(int row, int col) {
-        animating = true;
         int thisColor = white ? 0 : 1;
         int otherColor = white ? 1 : 0;
 
@@ -214,7 +219,6 @@ public class GameGrid : MonoBehaviour {
         }
 
         FlipTiles();
-        animating = false;
     }
 
     // Flip the tiles given by CheckForFlips()
@@ -239,17 +243,21 @@ public class GameGrid : MonoBehaviour {
 
         if(white) {
             Debug.Log(tilesFlipped + " black tiles flipped");
+            if(tilesFlipped > 0) audioSource.PlayOneShot(flipWhite, 1f);
         } else {
             Debug.Log(tilesFlipped + " white tiles flipped");
+            if(tilesFlipped > 0) audioSource.PlayOneShot(flipBlack, 1f);
         }
 
         tilesToFlip = new List<List<Tile>>(); // Reset the list
     }
 
+    // Determine who wins when the game is over
     private void EndGame() {
         Debug.Log("Game over");
         gameOver = true;
         blackMove.enabled = false;
+        audioSource.PlayOneShot(win, 1f);
 
         if(whiteScore > blackScore) {
             Debug.Log("White wins");
